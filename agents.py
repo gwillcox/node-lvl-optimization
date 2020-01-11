@@ -92,12 +92,12 @@ class InputAgent(Agent):
     This agent works to send linear inputs into the network. It doesn't ever update, and returns a NONE value for
     signal importance.
     """
-    def __init__(self, agent_id, n_connections_in):
-        super.__init__(agent_id, 0)
+    def __init__(self, agent_id):
+        super().__init__(agent_id, n_connections_in=0)
 
     def signal(self, input):
-        """Returns the input values"""
-        return input
+        """Returns the input values as a float"""
+        return input[0]
 
     def store_data(self, utility):
         return

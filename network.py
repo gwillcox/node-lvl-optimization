@@ -75,3 +75,48 @@ class TelephoneNetwork:
                     # TODO: signal is sent to all other nodes, but sending utility backwards requires a better structure
                     connection_num += 1
         return
+
+class MergeNetwork(TelephoneNetwork):
+    """
+    Creates a network that initializes a n agents to handle all inputs, and 1 agent to handle those agents' interplay
+    """
+
+    def __init__(self, n_inputs=4, n_agents=2, n_outputs=1):
+        """
+        Initializes the network, including random connection strengths.
+        """
+        # Defines the connection structure: half of incoming signals connect to one processing agent, half to the other.
+        # Both processing agents connect to the one final output node
+        split_pt = n_inputs / n_agents
+        self.connections = [[i,n_inputs+1*(split_pt>i)] for i in range(n_inputs)]
+        self.connections.extend([[i, n_inputs+n_agents] for i in range(n_inputs,n_inputs+n_agents)])
+        self.n_inputs = n_inputs
+        self.n_agents = n_agents
+
+        #  Creates agents based on this connection structure
+        self.agents = [agents.InputAgent(agent_id=i) for i in range(n_inputs)]
+        self.agents.extend([agents.LinearSRS(agent_id=n_inputs+i,
+                                             n_connections_in=1+np.sum(np.asarray(self.connections)[:,1]==i)) for i in range(n_agents)])
+        self.agents.extend([agents.LinearSRS(agent_id=n_inputs+n_agents+i, n_connections_in=1+n_agents) for i in range(n_outputs)])
+
+    def predict(self, input):
+        """
+        Calculates each agent's response to the input by feeding foward the signals from each agent to the next.
+        :return:
+        """
+        output = []
+        agent_inputs = [[1] for agent in self.agents]  # Creates an array of inputs for each agent at a given timestep. Each agent has at least 1 input--a unitary bias term.
+        [agent_inputs[i].append(input[i]) for i in range(self.n_inputs)]  # For the first node, append the input.
+
+        # Iterates over agents to propagate the signal from each agent to the next
+        for i, agent in enumerate(self.agents):
+            agent_signal = agent.signal(agent_inputs[i])
+
+            # sends signals to each agent that connects to this one
+            for connection in self.connections:
+                if connection[0] == i:
+                    agent_inputs[connection[1]].append(agent_signal)
+
+            output.append(agent_signal)  # Gathers the last agent's behavior
+
+        return output
