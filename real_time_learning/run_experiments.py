@@ -17,7 +17,7 @@ n_trials = 100000
 n_seeds = 10
 n_inputs = 5
 n_agents = 5
-n_outputs = 5
+n_outputs = 3
 
 # Defines a dataset of 100 points following a simple plane
 experiment_type = experiments.LinearFit_n_n
