@@ -8,6 +8,7 @@
 #####
 import numpy as np
 import agents
+import error_propagation
 
 
 class TelephoneNetwork:
@@ -15,7 +16,7 @@ class TelephoneNetwork:
     Creates a network of agents strung together in 1d, like a game of telephone.
     """
 
-    def __init__(self, n_agents=1):
+    def __init__(self, error_function=None, n_agents=1):
         """
         Initializes the network, specifying each agent and which agents connect to one another
         """
@@ -23,6 +24,7 @@ class TelephoneNetwork:
         # TODO: and test whether the errors we're seeing are exclusive to line-line networks.
         self.agents = [agents.LinearSRS(agent_id=i, n_connections_in=2) for i in range(n_agents)]
         self.connections = [[i,i+1] for i in range(n_agents-1)]
+        self.error_function = error_function
 
     def predict(self, input):
         """
@@ -50,54 +52,35 @@ class TelephoneNetwork:
         """
         Logs the true expected outcome, and backpropagates the change in utility.
         """
-        # Sets up the outcome tracker--which records the error / change in utility for each agent.
-        agent_outcome = np.zeros(len(self.agents))
-        agent_outcome[-1] += outcome  # Sets the last agent's error to the outcome.
 
-        # Iterates over agents, from last to first,
-        for i in range(len(self.agents)-1,-1,-1):
-            agent = self.agents[i]
-
-            # Record the outcome for this agent, and associate it with the agent's last inputs.
-            agent.store_data(agent_outcome[agent.id])
-
-            # Update the method this agent uses for signalling based on this new data
-            agent_importance_change = agent.update()
-
-            # Iterates over the connections and propagates the signal reward.
-            # Assumes that the first connections found will be the first signals reported
-            connection_num = 0
-            for connection in self.connections:
-                if connection[1] == agent.id:
-                    # TODO: This currently only works for agents that send a single signal. Fix this to index better (below).
-                    agent_outcome[connection[0]] += agent_importance_change[connection_num+1]
-                    # TODO: Figure out how better to index connections. Sending them forward is easy, because the same
-                    # TODO: signal is sent to all other nodes, but sending utility backwards requires a better structure
-                    connection_num += 1
+        self.error_function(outcome, self.agents, self.connections)
         return
+
 
 class MergeNetwork(TelephoneNetwork):
     """
     Creates a network that initializes a n agents to handle all inputs, and 1 agent to handle those agents' interplay
     """
 
-    def __init__(self, n_inputs=4, n_agents=2, n_outputs=1):
+    def __init__(self, error_function=None, n_inputs=4, n_agents=2, n_outputs=1):
         """
         Initializes the network, including random connection strengths.
         """
+        super().__init__(error_function,n_agents)
         # Defines the connection structure: half of incoming signals connect to one processing agent, half to the other.
         # Both processing agents connect to the one final output node
         split_pt = n_inputs / n_agents
-        self.connections = [[i,n_inputs+1*(split_pt>i)] for i in range(n_inputs)]
-        self.connections.extend([[i, n_inputs+n_agents] for i in range(n_inputs,n_inputs+n_agents)])
+        self.connections = [[i, n_agents] for i in range(n_agents)]
         self.n_inputs = n_inputs
         self.n_agents = n_agents
 
         #  Creates agents based on this connection structure
-        self.agents = [agents.InputAgent(agent_id=i) for i in range(n_inputs)]
-        self.agents.extend([agents.LinearSRS(agent_id=n_inputs+i,
-                                             n_connections_in=1+np.sum(np.asarray(self.connections)[:,1]==i)) for i in range(n_agents)])
+        self.agents = [agents.LinearSRS(agent_id=i, n_connections_in=1+np.sum(np.asarray(self.connections)[:,1]==i)) for i in range(n_agents+n_inputs)]
         self.agents.extend([agents.LinearSRS(agent_id=n_inputs+n_agents+i, n_connections_in=1+n_agents) for i in range(n_outputs)])
+
+        # Logs the error function for this network
+        self.error_function = error_function
+
 
     def predict(self, input):
         """
@@ -122,12 +105,61 @@ class MergeNetwork(TelephoneNetwork):
         return output
 
 
+class MergeNetworkReLU(MergeNetwork):
+    """
+    Creates a network that initializes a n agents to handle all inputs, and 1 agent to handle those agents' interplay
+    """
+
+    def __init__(self, error_function=error_propagation.propagate_signal_importance, n_inputs=4, n_agents=2, n_outputs=1):
+        """
+        Initializes the network, including random connection strengths.
+        """
+        super().__init__(error_function,n_agents)
+        # Defines the connection structure: half of incoming signals connect to one processing agent, half to the other.
+        # Both processing agents connect to the one final output node
+        split_pt = n_inputs / n_agents
+        self.connections = [[i, n_agents] for i in range(n_agents)]
+        self.n_inputs = n_inputs
+        self.n_agents = n_agents
+
+        #  Creates input + processing units that are RELUs and output agents that are Linear
+        self.agents = [agents.ReLUSRS(agent_id=i, n_connections_in=1+np.sum(np.asarray(self.connections)[:,1]==i)) for i in range(n_agents+n_inputs)]
+        self.agents.extend([agents.LinearSRS(agent_id=n_inputs+n_agents+i, n_connections_in=1+n_agents) for i in range(n_outputs)])
+
+
+class LayerNetworkReLU(MergeNetwork):
+    """
+    Creates a network that consists of one "layer", sending signals from input to the processing layer to output
+    """
+
+    def __init__(self, error_function=error_propagation.propagate_signal_importance, n_inputs=4, n_agents=2, n_outputs=1):
+        """
+        Initializes the network.
+        """
+        super().__init__(error_function,n_agents)
+        self.n_inputs = n_inputs
+        self.n_agents = n_agents
+
+        # Sets up the input agent connections: all input agents send information to all processing agents
+        self.connections = []
+        for processing_agent in range(n_agents):
+            self.connections.extend([[i, n_inputs+processing_agent] for i in range(n_inputs)])
+
+        for output_agent in range(n_outputs):
+            self.connections.extend([[n_inputs+i, n_inputs+n_agents+output_agent] for i in range(n_agents)])
+
+        #  Creates input + processing units that are RELUs and output agents that are Linear
+        self.agents = [agents.ReLUSRS(agent_id=i, n_connections_in=1+np.sum(np.asarray(self.connections)[:,1]==i)) for i in range(n_agents+n_inputs)]
+        self.agents.extend([agents.LinearSRS(agent_id=n_inputs+n_agents+i, n_connections_in=1+n_agents) for i in range(n_outputs)])
+
+
 class FullyConnectedNetwork(TelephoneNetwork):
 
-    def __init__(self, n_inputs=5, n_agents=5, n_outputs=1):
+    def __init__(self, error_function=None, n_inputs=5, n_agents=5, n_outputs=1):
         """
         Initializes the network as fully connected: each agent receives input from all inputs and all other previous agents.
         """
+        super().__init__(error_function,n_agents)
         # Defines the connection structure: half of incoming signals connect to one processing agent, half to the other.
         # Both processing agents connect to the one final output node
         split_pt = n_inputs / n_agents

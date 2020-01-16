@@ -34,7 +34,7 @@ class Agent:
         # Tracking variables for this agent's history
         self.last_inputs = np.zeros(n_connections_in)
         self.input_history = [np.zeros(n_connections_in), np.ones(n_connections_in)/n_connections_in]
-        self.utility_history = [0, 1]
+        self.utility_history = []
         self.history_length = 1000
 
     def signal(self, input):
@@ -97,7 +97,7 @@ class InputAgent(Agent):
 
     def signal(self, input):
         """Returns the input values as a float"""
-        return input[0]
+        return input[1]
 
     def store_data(self, utility):
         return
@@ -161,6 +161,7 @@ class LinearSRS(Agent):
                 self.connections -= self.recent_update
 
             # Makes a new update!
+            # TODO: Does changing this update fn change the steady-state error?
             self.recent_update = (np.random.rand(len(self.connections))-0.5)/20
             self.connections += self.recent_update
 
@@ -177,3 +178,18 @@ class LinearSRS(Agent):
         signal_importance = self.input_history[-1] * self.connections * self.utility_history[-1]
         return signal_importance
 
+
+class ReLUSRS(LinearSRS):
+    """
+    This agent is the same as Linear SRS but rectifies the signal also
+    """
+
+    def signal(self, input):
+        """
+        Processes a set of inputs into a single signal output using a RELU function
+        """
+        self.last_inputs = input
+
+        signal = np.sum(self.connections*np.asarray(input))
+        signal = max(signal, 0)
+        return signal
