@@ -1,13 +1,12 @@
 #####
-# Defines the base class of Agent for node-level optimization as linear, and enables other extension classes.
-# All Agents have:
+# Creates a set of real-time agents that make independent decisions about when to update.
+# All Real Agents have:
 #   INIT
 #   Signal Method
 #   Update Signalling Method
 #   Calculate Signal Importance
 #   Update Signal Importance
 #####
-import sklearn.linear_model
 import scipy.stats
 import numpy as np
 
@@ -34,7 +33,7 @@ class Agent:
         # Tracking variables for this agent's history
         self.last_inputs = np.zeros(n_connections_in)
         self.input_history = [np.zeros(n_connections_in), np.ones(n_connections_in)/n_connections_in]
-        self.utility_history = [0, 1]
+        self.utility_history = []
         self.history_length = 1000
 
     def signal(self, input):
@@ -97,7 +96,7 @@ class InputAgent(Agent):
 
     def signal(self, input):
         """Returns the input values as a float"""
-        return input[0]
+        return input[1]
 
     def store_data(self, utility):
         return
@@ -115,7 +114,7 @@ class LinearSRS(Agent):
         super().__init__(agent_id, n_connections_in)
 
         # logs the random searches and time to a new search
-        self.time_to_update = 50
+        self.time_to_update = 200
         self.time_since_update = self.time_to_update+1
         self.recent_update = np.zeros(self.connections.shape)
         self.expected_utility = -np.inf
@@ -161,6 +160,7 @@ class LinearSRS(Agent):
                 self.connections -= self.recent_update
 
             # Makes a new update!
+            # TODO: Does changing this update fn change the steady-state error?
             self.recent_update = (np.random.rand(len(self.connections))-0.5)/20
             self.connections += self.recent_update
 
@@ -177,3 +177,18 @@ class LinearSRS(Agent):
         signal_importance = self.input_history[-1] * self.connections * self.utility_history[-1]
         return signal_importance
 
+
+class ReLUSRS(LinearSRS):
+    """
+    This agent is the same as Linear SRS but rectifies the signal also
+    """
+
+    def signal(self, input):
+        """
+        Processes a set of inputs into a single signal output using a RELU function
+        """
+        self.last_inputs = input
+
+        signal = np.sum(self.connections*np.asarray(input))
+        signal = max(signal, 0)
+        return signal
