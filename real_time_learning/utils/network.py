@@ -52,7 +52,6 @@ class TelephoneNetwork:
         """
         Logs the true expected outcome, and backpropagates the change in utility.
         """
-
         self.error_function(outcome, self.agents, self.connections)
         return
 

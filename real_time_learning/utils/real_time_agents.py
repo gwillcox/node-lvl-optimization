@@ -1,6 +1,6 @@
 #####
-# Defines the base class of Agent for node-level optimization as linear, and enables other extension classes.
-# All Agents have:
+# Creates a set of real-time agents that make independent decisions about when to update.
+# All Real Agents have:
 #   INIT
 #   Signal Method
 #   Update Signalling Method
@@ -114,7 +114,7 @@ class LinearSRS(Agent):
         super().__init__(agent_id, n_connections_in)
 
         # logs the random searches and time to a new search
-        self.time_to_update = 1000
+        self.time_to_update = 200
         self.time_since_update = self.time_to_update+1
         self.recent_update = np.zeros(self.connections.shape)
         self.expected_utility = -np.inf

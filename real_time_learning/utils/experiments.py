@@ -118,34 +118,50 @@ class SqrtFit_n_n(LinearFit_n_n):
 # TODO: incorporating GYM experiments requires a major restructure:
 # TODO: action - > reward - > observation -> action
 
-# class GymCartPole:
-#     """
-#     Loads the CartPole
-#     :return:
-#     """
-#     def __init__(self, n_inputs=8, n_outputs=1):
-#         self.n_inputs = n_inputs
-#         self.n_outputs = n_outputs
-#
-#         # Sets up the environment
-#         self.env = gym.make("CartPole-v1")
-#         self.observation = self.env.reset()
-#         self.reward = 0
-#         self.done = False
-#         return
-#
-#     def get_next_trial(self):
-#         """
-#         Gets the x data for the next trial and stores the desired output
-#         :return:
-#         """
-#         self.env.render()
-#         action = self.env.action_space.sample()  # your agent here (this takes random actions)
-#         observation, reward, done, info = self.env.step(action)
-#         return observation
-#
-#     def grade_output(self, output):
-#         """
-#         Grades the output of the network
-#         """
-#         return -sum(abs(output - self.next_desired_output))
+class GymCartPole:
+    """
+    Loads the CartPole
+    :return:
+    """
+    def __init__(self):
+        self.n_inputs = 4
+        self.n_outputs = 1
+
+        # Sets up the environment
+        self.env = gym.make("CartPole-v1")
+        self.observation = self.env.reset()
+        self.reward = 0
+        self.done = False
+        return
+
+    def convert_output_to_env(self, output):
+        """
+        Cartpole only takes [0,1]
+        """
+        output = int(output[0]) % 2
+        assert self.env.action_space.contains(output)
+        return output
+
+    def step(self, output):
+        """
+        Gets the x data for the next trial and stores the desired output
+        :return:
+        """
+        # Makes a plot of the environment
+        # self.env.render()
+
+        # Takes an action, then observes the reward
+        action = self.convert_output_to_env(output)
+        observation, reward, done, info = self.env.step(action)
+
+        # Logs these variables
+        self.observation = observation
+        self.reward += reward
+        self.done = done
+
+        # If we have finished with this iteration, reset the simulation
+        if self.done:
+            self.reward = 0
+            self.observation = self.env.reset()
+
+        return self.observation, self.reward

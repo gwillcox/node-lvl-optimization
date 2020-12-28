@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="4093d1ba-3d3c-4384-8f1d-ee03d5c464ea" name="Default Changelist" comment="">
+    <list default="true" id="4093d1ba-3d3c-4384-8f1d-ee03d5c464ea" name="Default Changelist" comment="Merge network works!">
+      <change afterPath="$PROJECT_DIR$/real_time_learning/README.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/real_time_learning/run.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/real_time_learning/utils/agents.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/real_time_learning/utils/network.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/real_time_learning/utils/saving_functions.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/real_time_learning/utils/simulations.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/agents.py" beforeDir="false" afterPath="$PROJECT_DIR$/agents.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/network.py" beforeDir="false" afterPath="$PROJECT_DIR$/network.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/run.py" beforeDir="false" afterPath="$PROJECT_DIR$/run.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -23,33 +26,44 @@
     <session id="16175054">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
+          <entry key="project.closed" value="2" />
           <entry key="project.open.time.0" value="1" />
+          <entry key="project.open.time.2" value="1" />
           <entry key="project.open.time.7" value="1" />
           <entry key="project.open.time.9" value="1" />
-          <entry key="project.opened" value="3" />
+          <entry key="project.opened" value="4" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
-          <entry key="py" value="18" />
+          <entry key="md" value="1" />
+          <entry key="py" value="20" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
-          <entry key="Python" value="18" />
+          <entry key="Markdown" value="1" />
+          <entry key="Python" value="20" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
           <entry key="Python Console" value="1979" />
-          <entry key="py" value="13459" />
-          <entry key="txt" value="37" />
+          <entry key="md" value="234" />
+          <entry key="py" value="13464" />
+          <entry key="txt" value="59" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="PLAIN_TEXT" value="37" />
-          <entry key="Python" value="15438" />
+          <entry key="Markdown" value="234" />
+          <entry key="PLAIN_TEXT" value="59" />
+          <entry key="Python" value="15443" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.vcs.git.usages">
+        <counts>
+          <entry key="git.branch.create.new" value="1" />
         </counts>
       </usages-collector>
     </session>
@@ -58,11 +72,37 @@
     <splitter split-orientation="horizontal" split-proportion="0.41693038">
       <split-first>
         <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-          <file pinned="false" current-in-tab="true">
+          <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/run.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="255">
-                  <caret line="18" column="8" selection-start-line="18" selection-start-column="8" selection-end-line="18" selection-end-column="8" />
+                <state relative-caret-position="306">
+                  <caret line="21" column="13" lean-forward="true" selection-start-line="21" selection-start-column="13" selection-end-line="21" selection-end-column="13" />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/real_time_learning/utils/simulations.py">
+              <provider selected="true" editor-type-id="text-editor" />
+            </entry>
+          </file>
+          <file pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/real_time_learning/README.md">
+              <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+                <state split_layout="SPLIT">
+                  <first_editor relative-caret-position="68">
+                    <caret line="4" column="20" selection-start-line="4" selection-start-column="20" selection-end-line="4" selection-end-column="20" />
+                  </first_editor>
+                  <second_editor />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/real_time_learning/run.py">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="119">
+                  <caret line="7" column="9" selection-start-line="7" selection-start-column="9" selection-end-line="7" selection-end-column="9" />
                 </state>
               </provider>
             </entry>
@@ -70,7 +110,7 @@
           <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/network.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="1666">
+                <state relative-caret-position="1683">
                   <caret line="99" column="94" selection-start-line="99" selection-start-column="94" selection-end-line="99" selection-end-column="94" />
                   <folding>
                     <element signature="e#194#212#0" expanded="true" />
@@ -114,8 +154,8 @@
           <file pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/network.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="265">
-                  <caret line="92" column="32" selection-start-line="92" selection-start-column="32" selection-end-line="92" selection-end-column="32" />
+                <state relative-caret-position="469">
+                  <caret line="104" column="16" lean-forward="true" selection-start-line="104" selection-start-column="16" selection-end-line="104" selection-end-column="16" />
                   <folding>
                     <element signature="e#194#212#0" expanded="true" />
                     <marker date="1578192795454" expanded="true" signature="879:885" ph="..." />
@@ -137,6 +177,11 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="multiinput" />
+      </map>
+    </option>
   </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
@@ -146,6 +191,8 @@
         <option value="$PROJECT_DIR$/agents.py" />
         <option value="$PROJECT_DIR$/network.py" />
         <option value="$PROJECT_DIR$/run.py" />
+        <option value="$PROJECT_DIR$/real_time_learning/README.md" />
+        <option value="$PROJECT_DIR$/real_time_learning/run.py" />
       </list>
     </option>
   </component>
@@ -155,8 +202,9 @@
     <detection-done>true</detection-done>
     <sorting>DEFINITION_ORDER</sorting>
   </component>
-  <component name="ProjectFrameBounds" extendedState="7">
-    <option name="x" value="953" />
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="x" value="-8" />
+    <option name="y" value="-8" />
     <option name="width" value="974" />
     <option name="height" value="1047" />
   </component>
@@ -174,6 +222,17 @@
               <item name="A Node-Level Optimization Algorithm" type="b2602c69:ProjectViewProjectNode" />
               <item name="A Node-Level Optimization Algorithm" type="462c0819:PsiDirectoryNode" />
             </path>
+            <path>
+              <item name="A Node-Level Optimization Algorithm" type="b2602c69:ProjectViewProjectNode" />
+              <item name="A Node-Level Optimization Algorithm" type="462c0819:PsiDirectoryNode" />
+              <item name="real_time_learning" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="A Node-Level Optimization Algorithm" type="b2602c69:ProjectViewProjectNode" />
+              <item name="A Node-Level Optimization Algorithm" type="462c0819:PsiDirectoryNode" />
+              <item name="real_time_learning" type="462c0819:PsiDirectoryNode" />
+              <item name="utils" type="462c0819:PsiDirectoryNode" />
+            </path>
           </expand>
           <select />
         </subPane>
@@ -182,18 +241,20 @@
   </component>
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/real_time_learning" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\Users\Gregg Willcox\Desktop\Personal Research\Blogs\A Node-Level Optimization Algorithm" />
-    </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Gregg Willcox\Desktop\Personal Research\Blogs\A Node-Level Optimization Algorithm\real_time_learning\utils" />
       <recent name="C:\Users\Gregg Willcox\Desktop\Personal Research\Blogs\A Node-Level Optimization Algorithm\Images" />
       <recent name="C:\Users\Gregg Willcox\Desktop\Personal Research\Blogs\A Node-Level Optimization Algorithm\Old" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Gregg Willcox\Desktop\Personal Research\Blogs\A Node-Level Optimization Algorithm\real_time_learning" />
+      <recent name="C:\Users\Gregg Willcox\Desktop\Personal Research\Blogs\A Node-Level Optimization Algorithm" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -337,17 +398,34 @@
       <option name="project" value="LOCAL" />
       <updated>1577979565278</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Merge network works!">
+      <created>1578714242047</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1578714242047</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
+  <component name="TodoView">
+    <todo-panel id="selected-file">
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+    <todo-panel id="all">
+      <are-packages-shown value="true" />
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+  </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1056" extended-state="7" />
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info id="Favorites" order="0" side_tool="true" />
-      <window_info content_ui="combo" id="Project" order="1" visible="true" weight="0.046375267" />
+      <window_info active="true" content_ui="combo" id="Project" order="1" visible="true" weight="0.11886994" />
       <window_info id="Structure" order="2" side_tool="true" weight="0.25" />
       <window_info anchor="bottom" id="Database Changes" order="0" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Terminal" order="1" weight="0.21467689" />
+      <window_info anchor="bottom" id="Terminal" order="1" visible="true" weight="0.21366595" />
       <window_info anchor="bottom" id="Event Log" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Version Control" order="3" show_stripe_button="false" />
       <window_info anchor="bottom" id="Python Console" order="4" weight="0.32968238" />
@@ -358,10 +436,10 @@
       <window_info anchor="bottom" id="Debug" order="9" weight="0.37093276" />
       <window_info anchor="bottom" id="Cvs" order="10" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="11" weight="0.4" />
-      <window_info anchor="bottom" id="TODO" order="12" />
+      <window_info anchor="bottom" id="TODO" order="12" weight="0.329718" />
       <window_info anchor="right" id="Database" order="0" />
       <window_info anchor="right" id="Commander" order="1" weight="0.4" />
-      <window_info active="true" anchor="right" id="SciView" order="2" visible="true" weight="0.2803838" />
+      <window_info anchor="right" id="SciView" order="2" visible="true" weight="0.17697228" />
       <window_info anchor="right" id="Ant Build" order="3" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="4" weight="0.25" />
     </layout>
@@ -375,7 +453,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Telephone network works!" />
     <MESSAGE value="Telephone network works! (+ run.py)" />
-    <option name="LAST_COMMIT_MESSAGE" value="Telephone network works! (+ run.py)" />
+    <MESSAGE value="Merge network works!" />
+    <option name="LAST_COMMIT_MESSAGE" value="Merge network works!" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -417,12 +496,12 @@
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/local_node.py" />
-    <entry file="file://$PROJECT_DIR$/Old/run_simulation.py">
+    <entry file="file://$PROJECT_DIR$/old/run_simulation.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-1603" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Old/run_simulation_neural_net.py">
+    <entry file="file://$PROJECT_DIR$/old/run_simulation_neural_net.py">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="file://$USER_HOME$/Blurfontein/virtual/Lib/site-packages/scipy/stats/_stats_mstats_common.py">
@@ -444,13 +523,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="413">
           <caret line="1663" selection-start-line="1663" selection-end-line="1663" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/run.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="18" column="8" selection-start-line="18" selection-start-column="8" selection-end-line="18" selection-end-column="8" />
         </state>
       </provider>
     </entry>
@@ -478,13 +550,40 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/network.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="265">
-          <caret line="92" column="32" selection-start-line="92" selection-start-column="32" selection-end-line="92" selection-end-column="32" />
+        <state relative-caret-position="1683">
+          <caret line="99" column="94" selection-start-line="99" selection-start-column="94" selection-end-line="99" selection-end-column="94" />
           <folding>
             <element signature="e#194#212#0" expanded="true" />
             <marker date="1578192795454" expanded="true" signature="879:885" ph="..." />
             <marker date="1578192795454" expanded="true" signature="3501:3506" ph="..." />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/run.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="306">
+          <caret line="21" column="13" lean-forward="true" selection-start-line="21" selection-start-column="13" selection-end-line="21" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/real_time_learning/utils/simulations.py">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/real_time_learning/README.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="SPLIT">
+          <first_editor relative-caret-position="68">
+            <caret line="4" column="20" selection-start-line="4" selection-start-column="20" selection-end-line="4" selection-end-column="20" />
+          </first_editor>
+          <second_editor />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/real_time_learning/run.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="7" column="9" selection-start-line="7" selection-start-column="9" selection-end-line="7" selection-end-column="9" />
         </state>
       </provider>
     </entry>
